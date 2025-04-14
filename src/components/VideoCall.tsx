@@ -34,24 +34,23 @@ const VideoCall = ({ apiKey }: VideoCallProps) => {
       {/* Status bar with only time duration in the top right */}
       <div className="absolute top-0 right-0 p-4 flex justify-end items-center text-white/80 text-sm z-10">
         <div className="flex items-center gap-2 bg-black/30 px-3 py-1 rounded-full">
-          <span>Call duration: {duration}</span>
+          <span>{duration}</span>
         </div>
       </div>
 
-      {/* Title bar */}
-      <div className="absolute top-14 left-0 right-0 flex justify-between items-center px-4 z-10">
-        <Button variant="ghost" size="icon" className="rounded-full bg-gray-900/50 text-white">
-          <span className="transform rotate-45">
-            <SwitchCamera className="h-5 w-5" />
-          </span>
+      {/* Camera switch button in top left */}
+      <div className="absolute top-4 left-4 z-10">
+        <Button variant="ghost" size="icon" className="rounded-full bg-gray-900/50 text-white hover:bg-gray-800/50">
+          <SwitchCamera className="h-5 w-5" />
         </Button>
+      </div>
+
+      {/* Title bar */}
+      <div className="absolute top-14 left-0 right-0 flex justify-center items-center px-4 z-10">
         <div className="text-center text-white">
           <h1 className="text-xl font-medium">AI Assistant</h1>
           <p className="text-sm opacity-80">{isActive ? 'Connected' : 'Connecting...'}</p>
         </div>
-        <Button variant="ghost" size="icon" className="rounded-full bg-gray-900/50 text-white">
-          <Settings className="h-5 w-5" />
-        </Button>
       </div>
 
       {/* Camera preview */}
