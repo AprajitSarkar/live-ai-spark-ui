@@ -1,8 +1,8 @@
 
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Settings, Mic, MicOff, Camera, CameraOff, SwitchCamera, UserPlus, MoreHorizontal, PhoneOff } from "lucide-react";
+import { Settings, Mic, MicOff, Camera, CameraOff, SwitchCamera, PhoneOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useVideoCall } from "@/hooks/useVideoCall";
 import AudioVisualizer from "./AudioVisualizer";
@@ -16,13 +16,6 @@ const VideoCall = ({ apiKey }: VideoCallProps) => {
   const [isMicOn, setIsMicOn] = useState(true);
   const [isCameraOn, setIsCameraOn] = useState(true);
   const { videoRef, duration, startCall, isActive } = useVideoCall();
-  
-  // Get current time in HH:mm format
-  const currentTime = new Date().toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false
-  });
 
   useEffect(() => {
     startCall();
@@ -38,16 +31,10 @@ const VideoCall = ({ apiKey }: VideoCallProps) => {
 
   return (
     <div className="fixed inset-0 bg-gradient-to-b from-gray-900/90 to-black">
-      {/* Status bar */}
-      <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center text-white/80 text-sm z-10">
-        <span>{currentTime}</span>
-        <div className="flex items-center gap-2">
+      {/* Status bar with only time duration in the top right */}
+      <div className="absolute top-0 right-0 p-4 flex justify-end items-center text-white/80 text-sm z-10">
+        <div className="flex items-center gap-2 bg-black/30 px-3 py-1 rounded-full">
           <span>Call duration: {duration}</span>
-          <div className="flex gap-1">
-            {[1,2,3,4].map((i) => (
-              <div key={i} className="w-1 h-3 bg-white/80 rounded-full" />
-            ))}
-          </div>
         </div>
       </div>
 
@@ -98,14 +85,6 @@ const VideoCall = ({ apiKey }: VideoCallProps) => {
         className="absolute bottom-8 left-4 right-4 z-10"
       >
         <div className="bg-gray-900/90 backdrop-blur-lg rounded-full p-2 flex justify-around items-center">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full hover:bg-gray-700/50"
-          >
-            <MoreHorizontal className="h-6 w-6 text-white" />
-          </Button>
-
           <Button
             variant="ghost"
             size="icon"
